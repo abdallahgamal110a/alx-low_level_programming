@@ -1,2 +1,2 @@
 #!/bin/bush
-gcc -c $cfile -o 'echo $CFILE |cut -d. -f1 '.o
+gcc -c $CFILE  -o 'echo $CFILE |cut -d. -f1 '.o
