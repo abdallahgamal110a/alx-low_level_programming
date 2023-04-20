@@ -8,7 +8,6 @@
  * @array: Array to iterate over
  *
  * @size: Size of the array
- *
  * @action: Pointer to function used
  */
 void array_iterator(int *array, size_t size, void (*action)(int))
