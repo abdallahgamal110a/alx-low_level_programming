@@ -14,8 +14,7 @@ if (index > 63)
 {
 return (-1);
 }
-while (A = 1 << index)
-{
+A = 1 << index
 return ((n & A) > 0);
-}
+
 }
