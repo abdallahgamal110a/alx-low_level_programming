@@ -1,4 +1,8 @@
 #include"main.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 /**
 * read_textfile - reads a text file and prints it to the POSIX standard output
 * @filename: name of the file to read
@@ -18,9 +22,11 @@ return (0);
 a = open(filename, O_RDONLY);
 if (a == -1)
 return (0);
+
 res = malloc(letters + 1);
 if (res == NULL)
 return (0);
+
 n_rd = read(a, res, letters);
 if (n_rd == -1)
 {
@@ -37,6 +43,7 @@ free(res);
 close(a);
 return (0);
 }
+
 free(res);
 close(a);
 return (n_wr);
