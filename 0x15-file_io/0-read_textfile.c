@@ -12,28 +12,40 @@
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-ssize_t op, rd, wr;
-char *buff;
+int op;
+ssize_t n_rd, n_wr;
+char *buffer;
 
 if (filename == NULL)
 return (0);
 
-buff = malloc(sizeof(char) * letters);
-if (buff == NULL)
+op = open(filename, O_RDONLY);
+if (op == -1)
 return (0);
 
-op = open(filename, O_RDONLY);
-rd = read(op, buff, letters);
-wr = write(STDOUT_FILENO, buff, rd);
+buffer = malloc(letters + 1); /* Add space for null terminator */
+if (buffer == NULL)
+return (0);
 
-if (op == -1 || rd == -1 || wr == -1 || wr != rd)
+n_rd = read(op, buffer, letters);
+if (n_rd == -1)
 {
-free(buff);
+free(buffer);
+close(op);
 return (0);
 }
 
-free(buff);
-close(op);
+buffer[n_rd] = '\0'; /* Add null terminator */
 
-return (wr);
+n_wr = write(STDOUT_FILENO, buffer, n_rd);
+if (n_wr == -1 || n_wr != n_rd)
+{
+free(buffer);
+close(op);
+return (0);
+}
+
+free(buffer);
+close(op);
+return (n_wr);
 }
