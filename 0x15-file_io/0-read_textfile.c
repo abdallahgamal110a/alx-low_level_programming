@@ -12,39 +12,27 @@
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-int a;
-ssize_t n_rd, n_wr;
-char *res;
+ssize_t op, rd, wr;
+char *buff;
 
 if (filename == NULL)
 return (0);
 
-a = open(filename, O_RDONLY);
-if (a == -1)
+buff = malloc(sizeof(char) * letters);
+if (buff == NULL)
 return (0);
 
-res = malloc(letters + 1);
-if (res == NULL)
-return (0);
+op = open(filename, O_RDONLY);
+rd = read(op, buff, letters);
+wr = write(STDOUT_FILENO, buff, rd);
 
-n_rd = read(a, res, letters);
-if (n_rd == -1)
+if (op == -1 || rd == -1 || wr == -1 || wr != rd)
 {
-free(res);
-close(a);
+free(buff);
 return (0);
 }
 
-buf[n_rd] = '\0';
-n_wr = write(STDOUT_FILENO, res, n_rd);
-if (n_wr == -1 || n_wr != n_rd)
-{
-free(res);
-close(a);
-return (0);
-}
+free(buff);
+close(op);
 
-free(res);
-close(a);
-return (n_wr);
-}
+return (wr);
