@@ -12,32 +12,40 @@
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
+int op;
+ssize_t n_rd, n_wr;
+char *buffer;
+
 if (filename == NULL)
-return 0;
+return (0);
 
-int fd = open(filename, O_RDONLY);
-if (fd == -1)
-return 0;
+op = open(filename, O_RDONLY);
+if (op == -1)
+return (0);
 
-char *buf = (char *) malloc(letters * sizeof(char));
-if (buf == NULL)
-return 0;
+buffer = malloc(letters + 1); /* Add space for null terminator */
+if (buffer == NULL)
+return (0);
 
-ssize_t bytes_read = read(fd, buf, letters);
-if (bytes_read == -1) {
-free(buf);
-close(fd);
-return 0;
+n_rd = read(op, buffer, letters);
+if (n_rd == -1)
+{
+free(buffer);
+close(op);
+return (0);
 }
 
-ssize_t bytes_written = write(STDOUT_FILENO, buf, bytes_read);
-if (bytes_written == -1 || bytes_written != bytes_read) {
-free(buf);
-close(fd);
-return 0;
+buffer[n_rd] = '\0'; /* Add null terminator */
+
+n_wr = write(STDOUT_FILENO, buffer, n_rd);
+if (n_wr == -1 || n_wr != n_rd)
+{
+free(buffer);
+close(op);
+return (0);
 }
 
-free(buf);
-close(fd);
-return bytes_written;
+free(buffer);
+close(op);
+return (n_wr);
 }
