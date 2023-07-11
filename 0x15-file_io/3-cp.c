@@ -1,7 +1,7 @@
 /*
  * File: 3-cp.c
  */
-
+#include"main.h"
 /**
  * create_buffer - Allocates space for a buffer.
  * @file: The name of the to store chars for.
