@@ -26,7 +26,7 @@ op = open(filename, O_RDONLY);
 if (op == -1)
 return (0);
 
-buffer = malloc(letters + 1);
+buffer = malloc(letters + 1);/* Add space for null terminator */
 if (buffer == NULL)
 return (0);
 
@@ -38,7 +38,7 @@ close(op);
 return (0);
 }
 
-buffer[n_rd] = '\0';
+buffer[n_rd] = '\0';/* Add null terminator */
 
 n_wr = write(STDOUT_FILENO, buffer, n_rd);
 if (n_wr == -1 || n_wr != n_rd)
