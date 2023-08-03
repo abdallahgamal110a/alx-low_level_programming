@@ -1,27 +1,26 @@
-#include"main.h"
+#include <stdio.h>
+#include "main.h"
 /**
-* print_binary - print binary representation of a number
-*
-* @n: decimal number to print as binary
-*/
-void print_binary(unsigned long int n)
+ * print_binary - print binary representation of a number
+ * @i: decimal number to print as binary
+ *
+ */
+void print_binary(unsigned long int i)
 {
-char a = '0';
-unsigned long int len = 1ul << 63;
-
-while (!(len & n) && len != 0)
-len = len >> 1;
-
-if (len == 0)
-write(1, &a, 1);
-
-while (len)
+unsigned long int t;
+int s;
+if (i == 0)
 {
-if (len & n)
-a = '1';
+printf("0");
+return;
+}
+for (t = i, s = 0; (t >>= 1) > 0; s++)
+;
+for (; s >= 0; s--)
+{
+if ((i >> s) & 1)
+printf("1");
 else
-a = '0';
-write(1, &a, 1);
-len = len >> 1;
+printf("0");
 }
 }
