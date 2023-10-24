@@ -9,14 +9,19 @@
  */
 size_t print_listint(const listint_t *h)
 {
-	size_t nodes = 0;
+int count = 0;
+const listint_t *current = h;
 
-	while (h)
+if (current == NULL)
+return (0);
+else
+{
+	while (current)
 	{
-		nodes++;
-		printf("%d\n", h->n);
-		h = h->next;
+		printf("%d\n", current->n);
+		current = current->next;
+		count++;
 	}
-
-	return (nodes);
+}
+return (count);
 }
