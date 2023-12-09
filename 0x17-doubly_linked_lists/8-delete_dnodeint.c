@@ -40,7 +40,7 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	{
 		node_to_delete = aux_node->next;
 		if (node_to_delete->next)
-		node_to_delete->next->prev = aux_node;
+			node_to_delete->next->prev = aux_node;
 		aux_node->next = node_to_delete->next;
 		free(node_to_delete);
 		return (1);
